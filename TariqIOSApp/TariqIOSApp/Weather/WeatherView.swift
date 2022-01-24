@@ -52,9 +52,15 @@ struct CellView: View {
     var counter = 1
     var weatherDetail: WeatherForcast
     var body: some View {
+        let index = weatherDetail.date.index(weatherDetail.date.startIndex, offsetBy: 10)
+        let dateFormatted = weatherDetail.date[..<index]
         if weatherDetail.header {
-            Text(weatherDetail.name + " " + weatherDetail.date)
-                .bold().font(.system(size: 12))
+            VStack {
+                Text(weatherDetail.name)
+                    .bold().font(.system(size: 18))
+                Text(dateFormatted)
+                    .bold().font(.system(size: 12))
+            }
         } else {
             AsyncImage(url: URL(string: weatherDetail.weatherIconUrl)) { image in
                             image.resizable()
