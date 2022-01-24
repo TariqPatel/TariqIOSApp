@@ -36,10 +36,15 @@ struct Location {
     let longitude: Double?
 }
 
-struct WeatherDetails {
+struct WeatherForcast: Identifiable {
+    let id: String = UUID().uuidString
     let title: String
     let description: String
     let temp: String
     let name: String
     let weatherIconUrl: String
+    let weatherDetails: [WeatherForcast]?
 }
+
+
+

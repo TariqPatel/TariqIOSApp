@@ -23,21 +23,8 @@ struct WeatherView: View {
         NavigationView {
             VStack {
             if showWeather {
-                VStack(alignment: .center) {
-                    AsyncImage(url: URL(string: viewModel.weatherIcon)) { image in
-                        image.resizable()
-                    } placeholder: {
-                        Color.clear
-                    }
-                    .frame(width: 200, height: 200)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    Text(viewModel.name)
-                        .bold().font(.system(size: 40))
-                    Text(viewModel.temp)
-                        .bold().font(.system(size: 60))
-                    Text(viewModel.title)
-                        .bold().font(.system(size: 30))
-                    Text(viewModel.description).font(.system(size: 30))
+                List(viewModel.weatherForcast, children: \.weatherDetails) { forcast in
+                    CellView(weatherDetail: forcast).listRowSeparator(.hidden)
                 }
             } else {
                 Text("I wonder what the weather is today?")
@@ -49,9 +36,9 @@ struct WeatherView: View {
                     .foregroundColor(.white)
                     .cornerRadius(20)
                     
-            }
+            }.background(Color.white)
         }
-        .navigationTitle("Weather")
+        .navigationTitle("Weather").background(Color.white).listRowSeparator(.hidden)
     }
     
     //Get the weather data from the view model
@@ -60,6 +47,28 @@ struct WeatherView: View {
         showWeather = true
     }
 }
+
+struct CellView: View {
+    var weatherDetail: WeatherForcast
+    var body: some View {
+        AsyncImage(url: URL(string: weatherDetail.weatherIconUrl)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        Color.clear
+                    }
+                    .frame(width: 30, height: 30)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    Text(weatherDetail.name)
+                        .bold().font(.system(size: 12))
+                    Text(weatherDetail.temp)
+                        .bold().font(.system(size: 18))
+                    Text(weatherDetail.title)
+                        .bold().font(.system(size: 14))
+                    Text(weatherDetail.description).font(.system(size: 14)).listRowSeparator(.hidden)
+                
+            }
+    }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
