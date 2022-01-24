@@ -10,6 +10,7 @@ import Foundation
 struct WeatherModel: Hashable, Codable {
     let weather: [CurrentWeather]?
     let main: Main?
+    let dt_txt: String
 }
 
 struct WeatherList: Hashable, Codable {
@@ -43,7 +44,9 @@ struct WeatherForcast: Identifiable {
     let temp: String
     let name: String
     let weatherIconUrl: String
+    let header: Bool
     let weatherDetails: [WeatherForcast]?
+    let date: String
 }
 
 

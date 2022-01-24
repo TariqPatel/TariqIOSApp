@@ -27,7 +27,7 @@ struct WeatherView: View {
                     CellView(weatherDetail: forcast).listRowSeparator(.hidden)
                 }
             } else {
-                Text("I wonder what the weather is today?")
+                Text("I wonder what the weather is for the next 5 days?")
                     .bold().font(.system(size: 30))
             }
                 Button("Check Weather", action: getWeather).font(.system(size: 18))
@@ -49,24 +49,28 @@ struct WeatherView: View {
 }
 
 struct CellView: View {
+    var counter = 1
     var weatherDetail: WeatherForcast
     var body: some View {
-        AsyncImage(url: URL(string: weatherDetail.weatherIconUrl)) { image in
-                        image.resizable()
-                    } placeholder: {
-                        Color.clear
-                    }
-                    .frame(width: 30, height: 30)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    Text(weatherDetail.name)
-                        .bold().font(.system(size: 12))
-                    Text(weatherDetail.temp)
-                        .bold().font(.system(size: 18))
-                    Text(weatherDetail.title)
-                        .bold().font(.system(size: 14))
-                    Text(weatherDetail.description).font(.system(size: 14)).listRowSeparator(.hidden)
-                
-            }
+        if weatherDetail.header {
+            Text(weatherDetail.name + " " + weatherDetail.date)
+                .bold().font(.system(size: 12))
+        } else {
+            AsyncImage(url: URL(string: weatherDetail.weatherIconUrl)) { image in
+                            image.resizable()
+                        } placeholder: {
+                            Color.clear
+                        }
+                        .frame(width: 30, height: 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        Text(weatherDetail.temp)
+                            .bold().font(.system(size: 18))
+                        Text(weatherDetail.title)
+                            .bold().font(.system(size: 14))
+                        Text(weatherDetail.description).font(.system(size: 14)).listRowSeparator(.hidden)
+                    
+                }
+        }
     }
 
 

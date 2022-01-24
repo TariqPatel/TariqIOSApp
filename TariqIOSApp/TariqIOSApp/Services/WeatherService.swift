@@ -83,6 +83,7 @@ class WeatherService {
         var dayCounter = 0
         var weatherDetailList: [WeatherForcast] = []
         for weatherObject in weatherObjectList.list{
+            let date = weatherObject.dt_txt
             let imageUrl = "https://openweathermap.org/img/w/"
             let title = weatherObject.weather?.first?.main ?? "empty"
             let description = weatherObject.weather?.first?.description ?? "empty"
@@ -95,7 +96,9 @@ class WeatherService {
                                                temp: temp,
                                                name: name,
                                                weatherIconUrl: weatherIconUrl,
-                                               weatherDetails: [])
+                                               header: false,
+                                               weatherDetails: [],
+                                               date: date)
             weatherDetailList.append(weatherDetails)
             dayCounter += 1
             if dayCounter == 8 {
@@ -104,7 +107,9 @@ class WeatherService {
                                               temp: temp,
                                               name: name,
                                               weatherIconUrl: weatherIconUrl,
-                                              weatherDetails: weatherDetailList)
+                                              header: true,
+                                              weatherDetails: weatherDetailList,
+                                              date: date)
                 weatherForcast.append(weatherF)
                 weatherDetailList = []
                 dayCounter = 0
