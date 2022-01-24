@@ -24,11 +24,11 @@ struct WeatherView: View {
             VStack {
             if showWeather {
                 List(viewModel.weatherForcast, children: \.weatherDetails) { forcast in
-                    CellView(weatherDetail: forcast).listRowSeparator(.hidden)
+                    WeatherDetailView(weatherDetail: forcast).listRowSeparator(.hidden)
                 }
             } else {
-                Text("I wonder what the weather is for the next 5 days?")
-                    .bold().font(.system(size: 30))
+                Text("I wonder what the weather is for the next 5 days?").padding()
+                    .padding(20).font(.system(size: 30)).multilineTextAlignment(.center)
             }
                 Button("Check Weather", action: getWeather).font(.system(size: 18))
                     .padding(20)
@@ -48,7 +48,7 @@ struct WeatherView: View {
     }
 }
 
-struct CellView: View {
+struct WeatherDetailView: View {
     var counter = 1
     var weatherDetail: WeatherForcast
     var body: some View {
@@ -71,9 +71,11 @@ struct CellView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 25))
                         Text(weatherDetail.temp)
                             .bold().font(.system(size: 18))
-                        Text(weatherDetail.title)
-                            .bold().font(.system(size: 14))
-                        Text(weatherDetail.description).font(.system(size: 14)).listRowSeparator(.hidden)
+                        VStack {
+                            Text(weatherDetail.title)
+                                .bold().font(.system(size: 14))
+                            Text(weatherDetail.description).font(.system(size: 14)).listRowSeparator(.hidden)
+                        }
                     
                 }
         }
