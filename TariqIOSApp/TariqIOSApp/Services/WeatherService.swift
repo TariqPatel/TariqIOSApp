@@ -8,32 +8,6 @@
 import Foundation
 
 class WeatherService {
-    
-    //Fetching data from open weather map
-//    func fetchWeather(latitude: String, longitude: String, completion: @escaping (_ weather: WeatherDetails?) -> Void) {
-//        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=be68c57ac21a2f47f9a12bd99387a085") else {
-//            completion(nil)
-//            return
-//        }
-//
-//        let task = URLSession.shared.dataTask(with: url) {data, _, error in
-//            guard let data = data, error == nil else {
-//                return
-//            }
-//
-//            do {
-//                let weather = try JSONDecoder().decode(WeatherModel.self, from: data)
-//                let weatherDetail = self.setWeatherObject(weather)
-//                completion(weatherDetail)
-//
-//            } catch {
-//                print(error)
-//            }
-//        }
-//
-//        task.resume()
-//    }
-    
     //fetching data using rapidAPI
     func fetchRapidApiWeather(latitude: String, longitude: String, completion: @escaping (_ weather: [WeatherForcast]) -> Void) {
         let headers = [
@@ -65,18 +39,9 @@ class WeatherService {
             }
             
         })
-//
+
         dataTask.resume()
     }
-    
-//    func setWeatherObject(_ weatherObjectList: WeatherList, _ cityName: String) -> [WeatherDetails] {
-//        var weatherDetailList: [WeatherDetails] = []
-//        for weatherObject in weatherObjectList.list{
-//
-//        }
-//
-//        return weatherDetailList
-//    }
     
     func setWeatherForcast(_ weatherObjectList: WeatherList , _ cityName: String) -> [WeatherForcast] {
         var weatherForcast: [WeatherForcast] = []
